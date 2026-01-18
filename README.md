@@ -1,3 +1,5 @@
+My steps to acquire, explore and generate vector embeddings for Stack Overflow data dump. Requires Linux, Docker, and a GPU. 
+
 
 Download the stackoverflow data dump from [user settings](https://stackoverflow.com/users/preferences/). 
 

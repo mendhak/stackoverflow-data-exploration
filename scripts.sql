@@ -1,3 +1,5 @@
+-- Create an index first to help performance
+CREATE INDEX IF NOT EXISTS idx_posts_parentid ON public.posts (parentid);
 
 -- This gets questions and answers with their parent questions
 SELECT parent_posts.id, child_posts.id, parent_posts.title
@@ -36,13 +38,17 @@ ORDER BY parent_posts.id DESC
 LIMIT 50;
 
 
+-- Create the pgvector extension
+CREATE EXTENSION IF NOT EXISTS vector;
 
 -- Create a table with embeddings vector column
 CREATE TABLE search_qa (
-    id PRIMARY KEY,
+    id INT PRIMARY KEY,
     qa_body TEXT,
     embedding VECTOR(1024)  
 );
+
+-- Now run the generate_embeddings.py script to populate this table
 
 -- Have a look inside
 SELECT * FROM search_qa LIMIT 10;
