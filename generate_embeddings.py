@@ -11,8 +11,6 @@ import vllm
 from vllm import LLM
 import psycopg2
 
-documents = "Content Security Policy"
-
 
 model = LLM(
     model="Qwen/Qwen3-Embedding-0.6B", 

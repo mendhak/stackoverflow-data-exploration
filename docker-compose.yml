@@ -1,6 +1,6 @@
 services:
 
-  sodata:
+  sodata-pgimport:
       image: sodata-pgimport
       build:
         context: .
