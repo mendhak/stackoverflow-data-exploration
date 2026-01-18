@@ -1,0 +1,30 @@
+services:
+
+  sodata:
+      image: sodata-pgimport
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: sodata-pgimport
+      volumes:
+        - /home/mendhak/Downloads/StackOverflowData/stackoverflow.com:/data
+      command: ["-c", "host=pgstackoverflow dbname=stackoverflow user=localuser password=localpassword", "-o", "Posts", "-I"]
+      depends_on:
+        - pgstackoverflow
+      
+
+  pgstackoverflow:
+      image: pgvector/pgvector:0.8.1-pg18-trixie
+      container_name: pgstackoverflow
+      environment:
+        - POSTGRES_PASSWORD=localpassword
+        - POSTGRES_USER=localuser
+        - POSTGRES_DB=stackoverflow
+      ports:
+        - "5432:5432"
+      volumes:
+        - pgstackoverflow_data:/var/lib/postgresql
+        - /home/mendhak/Downloads/StackOverflowData/stackoverflow.com:/data
+
+volumes:
+  pgstackoverflow_data: 
